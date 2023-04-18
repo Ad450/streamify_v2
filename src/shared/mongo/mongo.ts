@@ -5,7 +5,6 @@ import { Likes, LikesSchema } from './schema/likes';
 import { Video, VideoSchema } from './schema/video';
 
 const MONGO_URL = process.env.MONGO_URL;
-console.log(MONGO_URL);
 
 @Module({
     imports: [
@@ -18,5 +17,6 @@ console.log(MONGO_URL);
             { name: Video.name, schema: VideoSchema },
         ]),
     ],
+    exports: [MongooseModule],
 })
 export class DatabaseModule {}

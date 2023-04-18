@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from './user';
-import mongoose, { Date } from 'mongoose';
+import mongoose, { Date, Document } from 'mongoose';
 import { Video } from './video';
 
 @Schema()
-export class Likes {
+export class Likes extends Document {
     @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
     likedBy: User;
 

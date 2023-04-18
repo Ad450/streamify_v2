@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from './user';
-import mongoose, { Date } from 'mongoose';
+import mongoose, { Date, Document } from 'mongoose';
 
 @Schema()
-export class Video {
+export class Video extends Document {
     @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
     uploadedBy: User;
 
