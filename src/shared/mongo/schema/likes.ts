@@ -5,7 +5,7 @@ import { Video } from './video';
 
 @Schema()
 export class Likes extends Document {
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
     likedBy: User;
 
     @Prop({ default: 1 })
@@ -14,10 +14,10 @@ export class Likes extends Document {
     @Prop({ default: Date.now, type: Date })
     likedAt: Date;
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
     ownerOfVideo: User;
 
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Video' } })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Video', required: true })
     video: Video;
 }
 

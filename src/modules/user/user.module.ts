@@ -8,5 +8,6 @@ import { UtilModule } from '../../shared/utils/util.module';
     controllers: [UserController],
     providers: [UserService],
     imports: [DatabaseModule, UtilModule],
+    exports: [UserService],
 })
 export class UserModule {}

@@ -4,7 +4,7 @@ import mongoose, { Date, Document } from 'mongoose';
 
 @Schema()
 export class Video extends Document {
-    @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
     uploadedBy: User;
 
     @Prop({ required: true })

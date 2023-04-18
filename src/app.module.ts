@@ -3,12 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { TatumModule } from './modules/tatum/tatum.module';
-import { UploadsModule } from './modules/uploads/uploads.module';
-import { DatabaseModule } from './shared/mongo/mongo';
-import { SharedModule } from './shared/shared.module';
+import { VideoModule } from './modules/video/video.module';
 
 @Module({
-    imports: [UserModule, TatumModule, UploadsModule],
+    imports: [UserModule, TatumModule, VideoModule],
     controllers: [AppController],
     providers: [AppService],
 })
