@@ -17,7 +17,6 @@ export class UploadsController {
     @Post('upload')
     public async upload(@Body() uploadVideoDTO: UploadVideoDTO) {
         const { url, uploadedBy } = uploadVideoDTO;
-        console.log(uploadedBy);
         if (!url || !uploadedBy) throw new HttpException(this.errorsStrings.MISSING_PARAMS, HttpStatus.BAD_REQUEST);
         const uploadedByExists = await this.userService.findUserByContext(uploadedBy);
         if (!uploadedByExists) throw new HttpException(this.errorsStrings.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
