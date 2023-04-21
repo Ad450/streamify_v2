@@ -25,6 +25,7 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "@tatumio/tatum": "^1.37.33",
     "@types/web3": "^1.2.2",
     "axios": "^1.1.3",
     "dotenv": "^16.0.3",

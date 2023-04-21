@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import Web3 from 'web3';
+import Tatum from '@tatumio/tatum';
 
 @Injectable()
 export class RewardsSevice {
@@ -34,16 +35,16 @@ export class RewardsSevice {
     }
 
     public async sendEth(to: string, amount: number): Promise<string> {
-        const web3 = new Web3('http://localhost:8545');
+        const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
         try {
-            const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+            const amountInWei = amount * 10 ** 18;
             let privateKey;
             let senderAddress;
             const { NODE_ENV } = process.env;
             if (NODE_ENV === 'DEVELOPMENT') {
                 // replace with ganache or testnet
-                privateKey = 'ed600878aee5a18702a4115344cb514a8170a771ccac0045303a56ff39db1bb0';
-                senderAddress = '0xC74D732eF846aB0AEF32Bee26E1F911aC1f45949';
+                privateKey = 'e27e1ba576c979fc0839fe85b71a999cf715f59b26e8e7fc0cafffa1e54d480e';
+                senderAddress = '0x8A4145F18061CD50f36045A2CFb1815EaE8cc43B';
             } else {
                 privateKey = '';
                 senderAddress = '';
