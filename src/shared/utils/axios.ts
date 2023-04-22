@@ -14,7 +14,7 @@ export class AxiosService {
         headers: {
             //TODO: replace with mainnet api key
             'x-api-key': process.env.TATUMCLIENT_TEST_NET_API_KEY || '1f192559-65e0-4f0b-9e40-9515ce341b9f',
-            'x-testnet-type': 'ethganache',
+            'x-testnet-type': 'ethereum-sepolia',
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },

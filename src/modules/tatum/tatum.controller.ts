@@ -40,8 +40,9 @@ export class TatumController {
                 let newTotalLikesCount = user.totalLikesCount - parseInt(amount);
                 await user.updateOne({ totalLikesCount: newTotalLikesCount }).session(session);
                 const amountToReward = await this.rewardsService.calculateRewards(parseInt(amount));
-                await this.tatumService.transferRewards({ to: address, amount: amountToReward.toString() });
+                await this.rewardsService.sendEth(address, amountToReward);
                 await session.commitTransaction();
+                return { success: true };
             } catch (error) {
                 await session.abortTransaction();
                 throw new HttpException(error.toString(), HttpStatus.INTERNAL_SERVER_ERROR);

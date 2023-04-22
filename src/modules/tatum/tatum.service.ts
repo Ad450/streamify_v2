@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { AxiosService } from '../../shared/utils/axios';
 interface TransferRewardsParam {
     to: string;
     currency?: string;
-    amount: bigint;
+    amount: string;
 }
 
 @Injectable()
@@ -33,7 +33,7 @@ export class TatumService {
         return key;
     }
 
-    public async transferRewards({ to, amount }: TransferRewardsParam): Promise<boolean> {
+    public async transferRewards({ to, amount }: TransferRewardsParam): Promise<void> {
         const { ORG_PRIVATE_KEY } = process.env;
         const url = '/v3/ethereum/transaction';
         const data = {
@@ -45,9 +45,16 @@ export class TatumService {
         };
         try {
             await this.axios.axiosPost(url, data);
-            return true;
         } catch (error) {
-            throw error;
+            console.log(error);
+            throw new HttpException(error?.message, error?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    public async sendEthWithTatum(amount: number, to: string) {
+        const { NODE_ENV } = process.env;
+        let tatum;
+        if (NODE_ENV === 'DEVELOPMENT') {
+        } else {
         }
     }
 }

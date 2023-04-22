@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import Web3 from 'web3';
 import Tatum from '@tatumio/tatum';
+import Moralis from 'moralis';
+import BigNumber from 'bignumber.js';
 
 @Injectable()
 export class RewardsSevice {
@@ -35,20 +37,19 @@ export class RewardsSevice {
     }
 
     public async sendEth(to: string, amount: number): Promise<string> {
-        const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+        const web3 = new Web3(
+            new Web3.providers.HttpProvider('https://eth-sepolia.g.alchemy.com/v2/keUvyHXy_kw6Q__qyw_zX9hxEM5Qs0au')
+        );
         try {
-            const amountInWei = amount * 10 ** 18;
+            const amountInWei = BigNumber(amount * 10 ** 18)
+                .toString()
+                .split('.')[0];
             let privateKey;
             let senderAddress;
-            const { NODE_ENV } = process.env;
-            if (NODE_ENV === 'DEVELOPMENT') {
-                // replace with ganache or testnet
-                privateKey = 'e27e1ba576c979fc0839fe85b71a999cf715f59b26e8e7fc0cafffa1e54d480e';
-                senderAddress = '0x8A4145F18061CD50f36045A2CFb1815EaE8cc43B';
-            } else {
-                privateKey = '';
-                senderAddress = '';
-            }
+            /// private key and senderAddress are exposed for educational purpose since
+            // everything will be run on ethereum-serpolia
+            privateKey = '1cb0588b670b81fcdf80f3c14284925c0f449e7052c6ab25966a5f2eed47b29c';
+            senderAddress = '0xe57A9202878B529E6D35602faB66a5a0B5143f38';
             const txObject = {
                 from: senderAddress,
                 to,
@@ -70,5 +71,10 @@ export class RewardsSevice {
             console.error(`Failed to send ETH: ${error}`);
             throw new HttpException(error.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public async sendEthWithMoralis(to: string, amount: string) {
+        try {
+        } catch (error) {}
     }
 }
