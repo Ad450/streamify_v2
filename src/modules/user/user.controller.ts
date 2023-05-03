@@ -13,7 +13,7 @@ export class UserController {
     @Post()
     public async registerUser(@Body() registerUserDTO: RegisterUseDTO) {
         const { email, uid, provider, name } = registerUserDTO;
-        if (!email || !uid || !provider || !name)
+        if (!email || !uid || !provider)
             throw new HttpException(this.errorsStrings.MISSING_PARAMS, HttpStatus.BAD_REQUEST);
         const user = await this.userService.findUserByContext(undefined, email);
         if (user) throw new HttpException(this.errorsStrings.USER_EXISTS, HttpStatus.NOT_ACCEPTABLE);

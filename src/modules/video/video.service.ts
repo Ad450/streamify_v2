@@ -30,6 +30,14 @@ export class VideoService {
         return await this.videoModel.findOne({ _id: new Types.ObjectId(videoId) });
     }
 
+    public async findAllVideos() {
+        return await this.videoModel.find();
+    }
+
+    public async findVideosByUploadedBy(uploadedBy: string) {
+        return await this.videoModel.find({ uploadedBy: new Types.ObjectId(uploadedBy) });
+    }
+
     public async incrementLikeCountOfVideoOwner(owner: Types.ObjectId) {
         const user = await this.userService.findUserByContext(owner.toString());
         await user?.updateOne({ totalLikesCount: user.totalLikesCount + 1 });

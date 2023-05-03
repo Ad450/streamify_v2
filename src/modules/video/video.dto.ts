@@ -13,3 +13,7 @@ export class DislikeDTO {
     public readonly ownerOfVideo: string;
     public readonly videoId: string;
 }
+
+export class GetAllVideosDTO {
+    public readonly uploadedBy: string;
+}

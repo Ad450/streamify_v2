@@ -1,5 +1,5 @@
 import { Body, Controller, HttpException, HttpStatus, Inject, Post } from '@nestjs/common';
-import { DislikeDTO, LikeVideDTO, UploadVideoDTO } from './video.dto';
+import { DislikeDTO, GetAllVideosDTO, LikeVideDTO, UploadVideoDTO } from './video.dto';
 import { ErrorStrings } from '../../shared/utils/errors';
 import { UserService } from '../user/user.service';
 import { VideoService } from './video.service';
@@ -68,5 +68,12 @@ export class UploadsController {
         await this.videoService.removeLikedByToVideoLikesArray(dislikedByExists._id, videoExists._id);
         await this.videoService.deleteLike(dislikedByExists._id, ownerExists._id, videoExists._id);
         return { success: true };
+    }
+
+    @Post('all')
+    public async getAllUploadedVideosByUser(@Body() getAllVideosDTO: GetAllVideosDTO) {
+        const { uploadedBy } = getAllVideosDTO;
+        const videos = await this.videoService.findVideosByUploadedBy(uploadedBy);
+        return videos;
     }
 }

@@ -8,8 +8,7 @@ export enum Provider {
 
 @Schema()
 export class User extends Document {
-    @Prop({ required: true })
-    name: String;
+    name?: String;
 
     @Prop({ required: true })
     uid: String;
